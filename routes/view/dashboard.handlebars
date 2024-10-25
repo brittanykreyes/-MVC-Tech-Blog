@@ -1,0 +1,12 @@
+<h2>Your Blog Posts</h2>
+<ul>
+  {{#each blogs}}
+    <li>
+      <a href="/blog/{{this.id}}">{{this.title}}</a>
+      <form action="/blog/{{this.id}}/delete" method="POST">
+        <button type="submit" class="delete-button">Delete</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+<a href="/blog/new">Create New Post</a>
