@@ -27,5 +27,11 @@ router.get("/dashboard", (req, res) => {
 
 
 
+router.get("/blogpost", (req, res) => {
+    res.render("blogpost")
+})
+
+
+
 
 module.exports = router;
