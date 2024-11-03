@@ -1,17 +1,18 @@
 const express = require('express');
 const session = require('express-session');
-const { SequelizeStore } = require('connect-session-sequelize');
+const  SequelizeStore  = require('connect-session-sequelize')(session.Store);
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/api/userRoutes');
 const blogRoutes = require('./routes/api/blogRoutes');
 const commentRoutes = require('./routes/api/commentRoutes');
+const renderRoutes = require("./routes/view/renderRoutes")
 
 dotenv.config();
 
 const sequelize = require('./config/connection');
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 
 const sessionStore = new SequelizeStore({
   db: sequelize,
@@ -38,6 +39,8 @@ app.use(express.static('public'));
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/comments', commentRoutes);
+
+app.use('/', renderRoutes)
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
