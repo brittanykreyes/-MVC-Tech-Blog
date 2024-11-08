@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ where: { username } });
   if (user && await bcrypt.compare(password, user.password)) {
-    req.session.userId = username;
+    req.session.userId = user.id;
     res.redirect('/');
   } else {
     res.render('login', { error: 'Invalid credentials' });

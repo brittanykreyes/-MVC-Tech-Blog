@@ -3,10 +3,13 @@
   {{#each blogs}}
     <li>
       <a href="/blog/{{this.id}}">{{this.title}}</a>
-      <form action="/blog/{{this.id}}/delete" method="POST">
+      <form class="delete-blog" id="delete-blog-{{this.id}}">
         <button type="submit" class="delete-button">Delete</button>
       </form>
     </li>
   {{/each}}
 </ul>
 <a href="/blog/new">Create New Post</a>
+
+
+<script src="/js/dashboard.js"></script>

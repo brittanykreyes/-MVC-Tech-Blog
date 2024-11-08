@@ -1,4 +1,5 @@
 const express = require('express');
+const { Blog } = require('../../models');
 const router = express.Router();
 
 // GET routes for rendering the handlebars
@@ -21,8 +22,12 @@ router.get("/signup", (req, res) => {
 
 
 
-router.get("/dashboard", (req, res) => {
-    res.render("dashboard")
+router.get("/dashboard", async(req, res) => {
+    const allblog= await Blog.findAll()
+    const blogs= allblog.map(blog => blog.get({plain: true}))
+    res.render("dashboard", {
+        blogs
+    })
 })
 
 
@@ -31,6 +36,11 @@ router.get("/blogpost", (req, res) => {
     res.render("blogpost")
 })
 
+
+
+router.get("/blog/new", (req, res) => {
+    res.render("newblog")
+})
 
 
 
